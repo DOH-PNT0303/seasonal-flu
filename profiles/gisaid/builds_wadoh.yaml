@@ -4,7 +4,8 @@ custom_rules:
 metadata_fields:
   - Isolate_Name
   - Isolate_Id
-  - Passage_History
+  - passage_category
+  - Host
   - Location
   - Authors
   - Originating_Lab
@@ -14,6 +15,7 @@ renamed_metadata_fields:
   - strain
   - accession
   - passage
+  - host
   - location
   - authors
   - originating_lab
@@ -40,8 +42,8 @@ array-builds:
         - h1n1pdm
         - vic
       resolution:
+        - 2
         - 3
-        - 4
     build_name: "{lineage}_WA_{resolution}y"
     build_params:
       reference: "config/{lineage}/{{segment}}/reference.fasta"
@@ -55,14 +57,14 @@ array-builds:
       enable_lbi: true
     subsampling_parameters:
       min_date: '(datetime.datetime.today() - datetime.timedelta(days={resolution}*365)).strftime("%Y-%m-%d")'
-      include: "'config/{lineage}/reference_strains.txt'"
+      include: "'config/{lineage}/reference_strains_wa.txt'"
       exclude: "'config/{lineage}/outliers.txt'"
     subsamples:
       state:
-        filters: --query "division == 'Washington'" --min-date {min_date} --include {include}
+        filters: --query "division == 'Washington' & host == 'Human'" --min-date {min_date} --include {include}
       neighboring_state:
-        filters: --query "division == ['Idaho','Oregon','British Columbia']" --min-date {min_date} --include {include}
+        filters: --query "division == ['Idaho','Oregon','British Columbia'] & host == 'Human'" --min-date {min_date} --include {include}
       north_america:
-        filters: --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region == 'North America'" --subsample-max-sequences 400 --min-date {min_date} --include {include}
+        filters: --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region == 'North America' & host == 'Human'" --subsample-max-sequences 400 --min-date {min_date} --include {include}
       global:
-        filters: --group-by year month --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region != 'North America'" --sequences-per-group 2 --min-date {min_date} --include {include}
+        filters: --group-by year month --query "division != ['Washington','Idaho','Oregon','British Columbia'] & region != 'North America' & host == 'Human'" --sequences-per-group 2 --min-date {min_date} --include {include}
