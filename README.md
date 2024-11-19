@@ -55,6 +55,41 @@ When the workflow finishes running, visualize the resulting tree with the follow
 nextstrain view auspice 
 ```
 
+## Downloading sequences from GISAID for updates
+
+- Type: A
+- H: 3
+- N: 2 
+- Host: All 
+- Location: All
+- Required Segments: Leave unselected
+- Submission date: Year-past/Month-past/Day-past to Year-present/Month-present/Day-present
+
+- Type: A
+- H: 1
+- N: 1
+- Lineage: pdm09
+- Host: All 
+- Location: All
+- Required Segments: Leave unselected
+- Submission date: Year-past/Month-past/Day-past to Year-present/Month-present/Day-present
+
+- Type: B
+- Lineage: Victoria
+- Host: All 
+- Location: All
+- Required Segments: Leave unselected
+- Submission date: Year-past/Month-past/Day-past to Year-present/Month-present/Day-present
+
+For each flu-strain [i.e. h3n2, h1n1pdm, vic]: 
+
+Download Isolates as XLS > save as `[Year-past]_[Month-past]_[Day-past]_[Year-present]_[Month-present]_[Day-present]_[flu-strain]_metadata`
+
+Download Sequences(DNA) as FASTA: 
+- Select Isolate_Id only 
+- Download HA segment and save as: `[Year-past]_[Month-past]_[Day-past]_[Year-present]_[Month-present]_[Day-present]_[flu-strain]_ha_sequences.fasta`
+- Download NA segment and save as: `[Year-past]_[Month-past]_[Day-past]_[Year-present]_[Month-present]_[Day-present]_[flu-strain]_na_sequences.fasta`
+
 
 
 
