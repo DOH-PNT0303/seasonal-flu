@@ -12,6 +12,7 @@ logs/
 figures/
 targets/
 benchmarks/
+Rscripts/
 
 # Sensitive environment variables
 environment*
@@ -64,3 +65,4 @@ geckodriver.log
 
 # images
 *.png
+.Rproj.user
