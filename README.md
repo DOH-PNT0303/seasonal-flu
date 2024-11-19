@@ -1,30 +1,63 @@
-# nextstrain.org/flu
-
-[![Build Status](https://github.com/nextstrain/seasonal-flu/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/nextstrain/seasonal-flu/actions/workflows/ci.yaml)
-
-This is the [Nextstrain](https://nextstrain.org) build for seasonal influenza viruses,
-available online at [nextstrain.org/flu](https://nextstrain.org/flu).
-
+# NW-Page seasonal-flu 
+This is the NW-PAGE Washington focused [Nextstrain](https://nextstrain.org)  build for seasonal influenza viruses, available online at [nextstrain.org/groups/wadoh/seasonal-flu](https://nextstrain.org/groups/wadoh/flu/seasonal/h3n2/WA/2y/ha). 
 The build encompasses fetching data, preparing it for analysis, doing quality control,
 performing analyses, and saving the results in a format suitable for visualization (with
-[auspice][]).  This involves running components of Nextstrain such as [fauna][] and
-[augur][].
+[auspice][]). 
 
 All influenza virus specific steps and functionality for the Nextstrain pipeline should be
 housed in this repository.
 
-This build is more complicated than other standard nextstrain build because all four
-currently circulating seasonal influenza lineages (A/H3N2, A/H1N1pdm, B/Vic and B/Yam)
+This build is more complicated than other standard nextstrain builds because all three
+currently circulating seasonal influenza lineages (A/H3N2, A/H1N1pdm, and B/Vic)
 are analyzed using the same Snakefile with appropriate wildcards. In addition, we run
 analyses of both the HA and NA segments of the influenza virus genome and analyze datasets
-that span different time intervals (eg 2, 3, 6 years). Furthermore, the Nextstrain analysis
-of influenza virus evolution also uses antigenic and serological data from different
-WHO collaborating centers.
+that span different time intervals (eg 2 & 3 years). While the build is capable of using antigenic 
+and serological data to model fitness we currently do not incorporate these data in this build. 
 
-The different builds for the general public and the different WHO collaborating centers
-are configured via separate config files. The Nextstrain build configs
-([upload](profiles/upload.yaml), [nextstrain-public](profiles/nextstrain-public.yaml), [private.nextflu.org](profiles/private.nextflu.org.yaml))
-are used for our semi-automated builds through our [GitHub Action workflows](.github/workflows/).
+
+# Input data requirements for running the Washington focused seasonal-flu build 
+
+1. Sequence data from GISAID that has been cleaned and stored in a `data/` folder 
+partitioned by pathogen. For example, for the three circulating seasonal influenza lineages: 
+```
+data/h3n2/raw_sequences_ha.fasta
+data/h3n2/raw_sequences_na.fasta
+data/h1n1pdm/raw_sequences_ha.fasta
+data/h1n1pdm/raw_sequences_na.fasta
+data/vic/raw_sequences_ha.fasta
+data/vic/raw_sequences_na.fasta
+``` 
+
+2. Metadata from GISAID that has been cleaned and stored in a `data/` folder partitioned by pathogen. 
+``` 
+data/h3n2/metadata.xlsx
+data/h1n1pdm/metadata.xlsx
+data/vic/metadata.xlsx
+```
+
+# Running Washington focused seasonal-flu build 
+
+After cloning the repo: 
+
+```
+cd seasonal-flu 
+```
+
+Run the Nextstrain workflow for the data to produce an annotated phylogenetic tree of recent A/H3N2, A/H1N1, and B/Vic HA and NA data
+with the following command. 
+
+```
+nextstrain build . --configfile profiles/gisaid/builds_wadoh.yaml 
+```
+
+When the workflow finishes running, visualize the resulting tree with the following command. 
+```
+nextstrain view auspice 
+```
+
+
+
+
 
 ## Example build
 

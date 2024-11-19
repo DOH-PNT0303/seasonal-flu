@@ -12,6 +12,7 @@ logs/
 figures/
 targets/
 benchmarks/
+Rscripts/
 
 # Sensitive environment variables
 environment*
@@ -58,3 +59,10 @@ slurm-*
 # Jupyter/Altair droppings
 .ipynb_checkpoints
 geckodriver.log
+
+# R files
+.Rproj*
+
+# images
+*.png
+.Rproj.user
