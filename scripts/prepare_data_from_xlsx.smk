@@ -1,5 +1,4 @@
 ruleorder: prepare_sequences > parse
-ruleorder: prepare_metadata > annotate_metadata_with_reference_strains
 
 # Assumes that metadata XLS is the XLS metadata file downloaded from GISAID for
 # the same samples that appear in the raw sequences FASTA below.
@@ -13,7 +12,7 @@ ruleorder: prepare_metadata > annotate_metadata_with_reference_strains
 # 7. Select the first record for each unique strain name in the metadata, keeping the most recent accession.
 rule prepare_metadata:
     input:
-        metadata="data/{lineage}/metadata.xls",
+        metadata="data/{lineage}/metadata.xlsx",  # Changed to .xlsx
     output:
         metadata="data/{lineage}/metadata.tsv",
     params:
@@ -22,8 +21,8 @@ rule prepare_metadata:
     conda: "../../workflow/envs/nextstrain.yaml"
     shell:
         """
-        pip install xlrd
-        python3 scripts/xls2csv.py --xls {input.metadata} --output /dev/stdout \
+        pip install openpyxl  # Update to install openpyxl instead of xlrd
+        python3 scripts/xls2csv.py --xlsx {input.metadata} --output /dev/stdout \
             | csvtk cut -f {params.old_fields} \
             | csvtk rename -f {params.old_fields} -n {params.new_fields} \
             | csvtk sep -f location --na "N/A" --names region,country,division,location --merge --num-cols 4 --sep " / " \
