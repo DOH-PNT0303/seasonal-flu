@@ -44,7 +44,7 @@ array-builds:
       resolution:
         - 2
         - 3
-    build_name: "washington_{lineage}_{resolution}y"
+    build_name: "flu_seasonal_{lineage}_WA_{resolution}y"
     build_params:
       reference: "config/{lineage}/{{segment}}/reference.fasta"
       annotation: "config/{lineage}/{{segment}}/genemap.gff"

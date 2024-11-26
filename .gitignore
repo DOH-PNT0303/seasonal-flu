@@ -62,6 +62,7 @@ geckodriver.log
 
 # R files
 .Rproj*
+.Rhistory
 
 # images
 *.png
